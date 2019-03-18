@@ -1,0 +1,8 @@
+# Unit tests and static analysis
+
+Execute with:
+  $ tox
+
+Execute only subset with verbose diff on assertion errors:
+  $ tox -e py27 -- -vv tools/script/process_rpmdata_test.py::test_components
+

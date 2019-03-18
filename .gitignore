@@ -1,0 +1,10 @@
+.idea
+*.pyc
+.coverage
+.coverage.*
+.pytest-cache/
+.pytest-tmpdir/
+.tox/
+htmlcov/
+junit.xml
+tmp_yum.conf

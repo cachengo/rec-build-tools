@@ -1,0 +1,89 @@
+# Copyright 2019 Nokia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Root name to be used for chroot and caching, must differ between products
+config_opts['root'] = 'akrainolite'
+
+config_opts['target_arch'] = 'x86_64'
+config_opts['legal_host_arches'] = ('x86_64',)
+config_opts['dist'] = 'el7'  # only useful for --resultdir variable subst
+config_opts['chroot_setup_cmd'] = 'install createrepo yum-utils bison byacc cscope ctags cvs diffstat doxygen flex gcc gcc-c++ gcc-gfortran gettext git indent intltool libtool patch patchutils rcs redhat-rpm-config rpm-build subversion swig systemtap sudo'
+config_opts['plugin_conf']['yum_cache_enable'] = False
+config_opts['plugin_conf']['ccache_enable'] = False
+config_opts['plugin_conf']['ccache_opts']['max_cache_size'] = '1G'
+config_opts['plugin_conf']['ccache_opts']['dir'] = "/dev/shm/ccache.lcc-epel7"
+config_opts['rpmbuild_networking'] = True
+config_opts['cleanup_on_success'] = True
+config_opts['cleanup_on_failure'] = False
+config_opts['exclude_from_homedir_cleanup'] = ('build/SOURCES', '.bash_history', '.bashrc', 'build/RPMS', )
+#ADDITIONAL_CONFIG_OPTS#
+
+# Common RPM directive values
+config_opts['macros']['%packager'] = #RPM_PACKAGER#
+config_opts['macros']['%dist'] = ".el7.centos%{_platform_product}"
+config_opts['macros']['%_platform_product'] = #RPM_RELEASE_ID#
+config_opts['macros']['%_platform_dist'] = ".el7.centos"
+config_opts['macros']['%_platform_vendor'] = #RPM_VENDOR#
+config_opts['macros']['%_platform_license'] = #RPM_LICENSE#
+config_opts['macros']['%_platform_licence'] = "%{_platform_license}"
+
+# Product specific macros
+config_opts['macros']['%_playbooks_path'] = "/opt/openstack-ansible/playbooks"
+config_opts['macros']['%_inventory_path'] = "/opt/openstack-ansible/inventory"
+config_opts['macros']['%_roles_path'] = "/etc/ansible/roles"
+config_opts['macros']['%_installation_root_path'] = "/etc/lcm/playbooks/installation"
+config_opts['macros']['%_bootstrapping_path'] = "%{_installation_root_path}/bootstrapping"
+config_opts['macros']['%_provisioning_path'] = "%{_installation_root_path}/provisioning"
+config_opts['macros']['%_postconfig_path'] = "%{_installation_root_path}/postconfig"
+config_opts['macros']['%_finalize_path'] = "%{_installation_root_path}/finalize"
+config_opts['macros']['%_ansible_filter_plugins_path'] = "%{_roles_path}/plugins/filter"
+config_opts['macros']['%_caas_path'] = "/var/lib/caas"
+config_opts['macros']['%_caas_container_tar_path'] = "%{_caas_path}/images"
+config_opts['macros']['%_caas_manifest_path'] = "%{_caas_path}/manifests"
+config_opts['macros']['%_caas_chart_path'] = "${_caas_path}/chart/"
+config_opts['macros']['%_platform_bin_path'] = "/usr/local/bin"
+config_opts['macros']['%_platform_lib_path'] = "/usr/local/lib"
+config_opts['macros']['%_platform_etc_path'] = "/etc"
+config_opts['macros']['%_platform_share_path'] = "/share"
+config_opts['macros']['%_platform_man_path'] = "%{_platform_share_path}/man"
+config_opts['macros']['%_platform_doc_path'] = "%{_platform_share_path}/doc"
+config_opts['macros']['%_platform_var_path'] = "/var"
+config_opts['macros']['%_platform_python'] = "/python2.7"
+config_opts['macros']['%_platform_python_site_packages_path'] = "%{_platform_lib_path}%{_platform_python}/site-packages"
+config_opts['macros']['%_platform_ocf_resource_path']        = "/usr/lib/ocf/resource.d"
+config_opts['macros']['%_python_site_packages_path']         = "/usr/lib/python2.7/site-packages"
+config_opts['macros']['%_secrets_path']         = "/etc/required-secrets"
+
+# Compilation
+#config_opts['macros']['%_smp_mflags'] = "-j6"
+#config_opts['macros']['%_smp_ncpus_max'] = 0
+
+# Yum configuration
+config_opts['yum.conf'] = """
+[main]
+cachedir=/var/cache/yum
+keepcache=1
+debuglevel=2
+reposdir=/dev/null
+logfile=/var/log/yum.log
+retries=20
+obsoletes=1
+gpgcheck=0
+assumeyes=1
+syslog_ident=mock
+syslog_device=
+
+#REPOSITORIES#
+
+"""

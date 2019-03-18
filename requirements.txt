@@ -1,0 +1,7 @@
+requests
+pyyaml
+pytest
+pytest-cov
+pytest-flakes
+pytest-pep8
+mock

@@ -1,0 +1,144 @@
+Name        : python-futures
+Version     : 3.0.3
+Release     : 1.el7
+Architecture: noarch
+Install Date: Wed Feb  7 13:49:03 2018
+Group       : Development/Libraries
+Size        : 88366
+License     : BSD
+Signature   : RSA/SHA1, Fri Sep  1 15:07:30 2017, Key ID f9b9fee7764429e6
+Source RPM  : python-futures-3.0.3-1.el7.src.rpm
+Build Date  : Tue Jul 28 12:27:11 2015
+Build Host  : c1bj.rdu2.centos.org
+Relocations : (not relocatable)
+Packager    : CBS <cbs@centos.org>
+Vendor      : CentOS
+URL         : https://github.com/agronholm/pythonfutures
+Summary     : Backport of the concurrent.futures package from Python 3.2
+Description :
+The concurrent.futures module provides a high-level interface for
+asynchronously executing callables.
+Name        : libgnome-keyring
+Version     : 3.8.0
+Release     : 3.el7
+Architecture: x86_64
+Install Date: Wed Feb  7 13:50:17 2018
+Group       : System Environment/Libraries
+Size        : 303457
+License     : GPLv2+ and LGPLv2+
+Signature   : RSA/SHA256, Fri Jul  4 02:48:34 2014, Key ID 24c6a8a7f4a80eb5
+Source RPM  : libgnome-keyring-3.8.0-3.el7.src.rpm
+Build Date  : Tue Jun 10 08:58:52 2014
+Build Host  : worker1.bsys.centos.org
+Relocations : (not relocatable)
+Packager    : CentOS BuildSystem <http://bugs.centos.org>
+Vendor      : CentOS
+URL         : http://live.gnome.org/GnomeKeyring
+Summary     : Framework for managing passwords and other secrets
+Description :
+gnome-keyring is a program that keep password and other secrets for
+users. The library libgnome-keyring is used by applications to integrate
+with the gnome-keyring system.
+Name        : python-ldap3
+Version     : 0.9.8.6
+Release     : 2.el7
+Architecture: noarch
+Install Date: Wed Feb  7 13:52:25 2018
+Group       : Unspecified
+Size        : 3120182
+License     : LGPLv2+
+Signature   : RSA/SHA1, Fri Sep  1 15:07:38 2017, Key ID f9b9fee7764429e6
+Source RPM  : python-ldap3-0.9.8.6-2.el7.src.rpm
+Build Date  : Fri Nov 20 16:28:01 2015
+Build Host  : c1bk.rdu2.centos.org
+Relocations : (not relocatable)
+Packager    : CBS <cbs@centos.org>
+Vendor      : CentOS
+URL         : https://pypi.python.org/pypi/ldap3/0.9.8.6
+Summary     : Strictly RFC 4511 conforming LDAP V3 pure Python client
+Description :
+python-ldap3 is a strictly RFC 4511 conforming LDAP V3 pure Python client.
+The same codebase works with Python, Python 3, PyPy and PyPy3.
+Name        : python-dracclient
+Version     : 1.3.1
+Release     : 0.20170926083913.8f368ed.el7.centos
+Architecture: noarch
+Install Date: Wed Feb  7 13:49:30 2018
+Group       : Unspecified
+Size        : 1325637
+License     : ASL 2.0
+Signature   : (none)
+Source RPM  : python-dracclient-1.3.1-0.20170926083913.8f368ed.el7.centos.src.rpm
+Build Date  : Tue Sep 26 08:39:32 2017
+Build Host  : trunk-primary.rdoproject.org.rdocloud
+Relocations : (not relocatable)
+URL         : http://github.com/openstack/python-dracclient
+Summary     : Library for managing machines with Dell iDRAC cards.
+Description :
+Library for managing machines with Dell iDRAC cards.
+Name        : dialog
+Version     : 1.2
+Release     : 4.20130523.el7
+Architecture: x86_64
+Install Date: Wed Feb  7 13:49:48 2018
+Group       : Applications/System
+Size        : 517263
+License     : LGPLv2
+Signature   : RSA/SHA256, Fri Jul  4 01:08:16 2014, Key ID 24c6a8a7f4a80eb5
+Source RPM  : dialog-1.2-4.20130523.el7.src.rpm
+Build Date  : Tue Jun 10 01:38:26 2014
+Build Host  : worker1.bsys.centos.org
+Relocations : (not relocatable)
+Packager    : CentOS BuildSystem <http://bugs.centos.org>
+Vendor      : CentOS
+URL         : http://invisible-island.net/dialog/dialog.html
+Summary     : A utility for creating TTY dialog boxes
+Description :
+Dialog is a utility that allows you to show dialog boxes (containing
+questions or messages) in TTY (text mode) interfaces.  Dialog is called
+from within a shell script.  The following dialog boxes are implemented:
+yes/no, menu, input, message, text, info, checklist, radiolist, and
+gauge.
+
+Install dialog if you would like to create TTY dialog boxes.
+Name        : filesystem
+Version     : 3.2
+Release     : 21.el7
+Architecture: x86_64
+Install Date: Wed Feb  7 13:44:24 2018
+Group       : System Environment/Base
+Size        : 0
+License     : Public Domain
+Signature   : RSA/SHA256, Sun Nov 20 17:43:00 2016, Key ID 24c6a8a7f4a80eb5
+Source RPM  : filesystem-3.2-21.el7.src.rpm
+Build Date  : Sat Nov  5 15:39:14 2016
+Build Host  : worker1.bsys.centos.org
+Relocations : (not relocatable)
+Packager    : CentOS BuildSystem <http://bugs.centos.org>
+Vendor      : CentOS
+URL         : https://fedorahosted.org/filesystem
+Summary     : The basic directory layout for a Linux system
+Description :
+The filesystem package is one of the basic packages that is installed
+on a Linux system. Filesystem contains the basic directory layout
+for a Linux operating system, including the correct permissions for
+the directories.
+Name        : python2-tenacity
+Version     : 4.4.0
+Release     : 1.el7
+Architecture: noarch
+Install Date: Wed Feb  7 13:49:04 2018
+Group       : Unspecified
+Size        : 159111
+License     : ASL 2.0
+Signature   : RSA/SHA1, Fri Sep  1 15:11:29 2017, Key ID f9b9fee7764429e6
+Source RPM  : python-tenacity-4.4.0-1.el7.src.rpm
+Build Date  : Sat Aug  5 13:47:41 2017
+Build Host  : c1bd.rdu2.centos.org
+Relocations : (not relocatable)
+Packager    : CBS <cbs@centos.org>
+Vendor      : CentOS
+URL         : https://github.com/jd/tenacity
+Summary     : Tenacity is a general purpose retrying library
+Description :
+ Tenacity is a general purpose retrying library

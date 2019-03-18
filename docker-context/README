@@ -1,0 +1,31 @@
+Rules
+-----
+
+- CI must pull images from the intranet and not from the internet
+- CI must use always versioned tags, not the "latest"
+
+
+How to use?
+-----------
+
+e.g.
+  $ curl -L http://<some-url>/dib:1.2.tar | docker load
+
+
+How to develop?
+---------------
+
+#. Create local image
+
+    .. code-block::
+
+        $ docker build --rm -f Dockerfile-dib -t dib:<my-version> .
+        e.g.
+        $ docker build --rm -f Dockerfile-dib -t dib:1.2 .```
+
+#. Upload to file server
+
+    .. code-block::
+
+        $ docker save dib:1.2 > dib:1.2.tar
+        $ scp ./dib\:1.2.tar <user>@<server>:/var/www/<some-path>/

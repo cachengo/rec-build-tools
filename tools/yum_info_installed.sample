@@ -1,0 +1,223 @@
+Loaded plugins: fastestmirror, priorities
+Installed Packages
+Name        : GeoIP
+Arch        : x86_64
+Version     : 1.5.0
+Release     : 11.el7
+Size        : 2.8 M
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : Library for country/city/organization to IP address or hostname
+            : mapping
+URL         : http://www.maxmind.com/app/c
+License     : LGPLv2+ and GPLv2+ and CC-BY-SA
+Description : GeoIP is a C library that enables the user to find the country
+            : that any IP address or hostname originates from. It uses a file
+            : based database that is accurate as of June 2007 and can optionally
+            : be updated on a weekly basis by installing the GeoIP-update
+            : package. This database simply contains IP blocks as keys, and
+            : countries as values. This database should be more complete and
+            : accurate than using reverse DNS lookups.
+            : 
+            : This package includes GeoLite data created by MaxMind, available
+            : from http://www.maxmind.com/
+
+Name        : MySQL-python
+Arch        : x86_64
+Version     : 1.2.5
+Release     : 1.el7
+Size        : 284 k
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : An interface to MySQL
+URL         : https://github.com/farcepest/MySQLdb1
+License     : GPLv2+
+Description : Python interface to MySQL
+            : 
+            : MySQLdb is an interface to the popular MySQL database server for
+            : Python. The design goals are:
+            : 
+            : -     Compliance with Python database API version 2.0
+            : -     Thread-safety
+            : -     Thread-friendliness (threads will not block each other)
+            : -     Compatibility with MySQL 3.23 and up
+            : 
+            : This module should be mostly compatible with an older interface
+            : written by Joe Skinner and others. However, the older version is
+            : a) not thread-friendly, b) written for MySQL 3.21, c) apparently
+            : not actively maintained. No code from that version is used in
+            : MySQLdb.
+
+Name        : OpenIPMI-libs
+Arch        : x86_64
+Version     : 2.0.19
+Release     : 15.el7
+Size        : 1.7 M
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : The OpenIPMI runtime libraries
+URL         : http://sourceforge.net/projects/openipmi/
+License     : LGPLv2+ and GPLv2+ or BSD
+Description : The OpenIPMI-libs package contains the runtime libraries for
+            : shared binaries and applications.
+
+Name        : OpenIPMI-modalias
+Arch        : x86_64
+Version     : 2.0.19
+Release     : 15.el7
+Size        : 210  
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : Module aliases for IPMI subsystem
+URL         : http://sourceforge.net/projects/openipmi/
+License     : LGPLv2+ and GPLv2+ or BSD
+Description : The OpenIPMI-modalias provides configuration file with module
+            : aliases of ACPI and PNP wildcards.
+
+Name        : PyPAM
+Arch        : x86_64
+Version     : 0.5.0
+Release     : 19.el7
+Size        : 51 k
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : PAM bindings for Python
+URL         : http://www.pangalactic.org/PyPAM
+License     : LGPLv2
+Description : PAM (Pluggable Authentication Module) bindings for Python.
+
+Name        : PyYAML
+Arch        : x86_64
+Version     : 3.10
+Release     : 11.el7
+Size        : 630 k
+Repo        : installed
+Summary     : YAML parser and emitter for Python
+URL         : http://pyyaml.org/
+License     : MIT
+Description : YAML is a data serialization format designed for human readability
+            : and interaction with scripting languages.  PyYAML is a YAML parser
+            : and emitter for Python.
+            : 
+            : PyYAML features a complete YAML 1.1 parser, Unicode support,
+            : pickle support, capable extension API, and sensible error
+            : messages.  PyYAML supports standard YAML tags and provides
+            : Python-specific tags that allow to represent an arbitrary Python
+            : object.
+            : 
+            : PyYAML is applicable for a broad range of tasks from complex
+            : configuration files to object serialization and persistance.
+
+Name        : SDL
+Arch        : x86_64
+Version     : 1.2.15
+Release     : 14.el7
+Size        : 467 k
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : A cross-platform multimedia library
+URL         : http://www.libsdl.org/
+License     : LGPLv2+
+Description : Simple DirectMedia Layer (SDL) is a cross-platform multimedia
+            : library designed to provide fast access to the graphics frame
+            : buffer and audio device.
+
+Name        : XStatic-Angular-common
+Arch        : noarch
+Epoch       : 1
+Version     : 1.5.8.0
+Release     : 1.el7
+Size        : 3.1 M
+Repo        : installed
+From repo   : purkki-delorean
+Summary     : Common files for XStatic-Angular (XStatic packaging standard)
+URL         : http://angularjs.org
+License     : MIT
+Description : Common files for XStatic-Angular (XStatic packaging standard)
+
+Name        : acl
+Arch        : x86_64
+Version     : 2.2.51
+Release     : 12.el7
+Size        : 196 k
+Repo        : installed
+Summary     : Access control list utilities
+URL         : http://acl.bestbits.at/
+License     : GPLv2+
+Description : This package contains the getfacl and setfacl utilities needed for
+            : manipulating access control lists.
+
+Name        : adwaita-cursor-theme
+Arch        : noarch
+Version     : 3.14.1
+Release     : 1.el7
+Size        : 1.9 M
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : Adwaita cursor theme
+URL         : http://www.gnome.org
+License     : LGPLv3+ or CC-BY-SA
+Description : The adwaita-cursor-theme package contains a modern set of cursors
+            : originally designed for the GNOME desktop.
+
+Name        : adwaita-icon-theme
+Arch        : noarch
+Version     : 3.14.1
+Release     : 1.el7
+Size        : 13 M
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : Adwaita icon theme
+URL         : http://www.gnome.org
+License     : LGPLv3+ or CC-BY-SA
+Description : This package contains the Adwaita icon theme used by the GNOME
+            : desktop.
+
+Name        : agg
+Arch        : x86_64
+Version     : 2.5
+Release     : 18.el7
+Size        : 410 k
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : Anti-Grain Geometry graphical rendering engine
+URL         : http://www.antigrain.com
+License     : GPLv2+
+Description : A High Quality Rendering Engine for C++.
+
+Name        : alsa-lib
+Arch        : x86_64
+Version     : 1.1.1
+Release     : 1.el7
+Size        : 1.2 M
+Repo        : installed
+From repo   : purkki-centos-base
+Summary     : The Advanced Linux Sound Architecture (ALSA) library
+URL         : http://www.alsa-project.org/
+License     : LGPLv2+
+Description : The Advanced Linux Sound Architecture (ALSA) provides audio and
+            : MIDI functionality to the Linux operating system.
+            : 
+            : This package includes the ALSA runtime libraries to simplify
+            : application programming and provide higher level functionality as
+            : well as support for the older OSS API, providing binary
+            : compatibility for most OSS programs.
+
+Name        : ansible
+Arch        : noarch
+Version     : 2.3.0.0
+Release     : 3.el7
+Size        : 27 M
+Repo        : installed
+From repo   : purkki-delorean
+Summary     : SSH-based configuration management, deployment, and task execution
+            : system
+URL         : http://ansible.com
+License     : GPLv3+
+Description : 
+            : Ansible is a radically simple model-driven configuration
+            : management, multi-node deployment, and remote task execution
+            : system. Ansible works over SSH and does not require any software
+            : or daemons to be installed on remote nodes. Extension modules can
+            : be written in any language and are transferred to managed machines
+            : automatically.
