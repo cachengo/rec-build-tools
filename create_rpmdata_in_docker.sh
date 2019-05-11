@@ -39,7 +39,7 @@ output_mp=/output
 docker run \
   --rm \
   -e PYTHONPATH=/work \
-  -e BUILD_URL -e JENKINS_USERNAME -e JENKINS_TOKEN -e WORKSPACE \
+  -e BUILD_URL -e JENKINS_USERNAME -e JENKINS_TOKEN -e WORK \
   -v $scriptdir:/work \
   -v $input_dir:$input_mp \
   -v $output_dir:$output_mp \

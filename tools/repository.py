@@ -47,7 +47,7 @@ class RepositoryConfig(object):
             validate_environ(['BUILD_URL'])
             baseurl = os.path.join(os.environ['BUILD_URL'], 'artifact/results', dirname)
         else:
-            validate_environ(['WORKSPACE'])
+            validate_environ(['WORK'])
             baseurl = 'file://' + \
-                      os.path.join(os.environ['WORKSPACE'], 'results', dirname)
+                      os.path.join(os.environ['WORK'], 'results', dirname)
         return dict(name='localrepo', baseurl=baseurl)

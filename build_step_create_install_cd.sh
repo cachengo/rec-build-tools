@@ -23,11 +23,9 @@ _read_manifest_vars
 tmp=$WORKTMP/install_cd
 iso_build_dir=$tmp/build
 
-input_image="$WORKTMP/goldenimage/${GOLDEN_IMAGE_NAME}"
-output_image_path="$1"
-[[ $output_image_path =~ ^/ ]] || output_image_path=$(pwd)/$output_image_path
-output_bootcd_path="$2"
-[[ $output_bootcd_path =~ ^/ ]] || output_bootcd_path=$(pwd)/$output_bootcd_path
+input_image=$(readlink -f ${1:-$WORKTMP/goldenimage/$GOLDEN_IMAGE_NAME})
+output_image_path=${2:-$RESULT_IMAGES_DIR/rec.iso}
+output_bootcd_path=${3:-$RESULT_IMAGES_DIR/bootcd.iso}
 mkdir -p $tmp
 rm -rf $iso_build_dir
 mkdir -p $iso_build_dir

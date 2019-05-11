@@ -191,7 +191,10 @@ class RpmDataBuilder(object):
     def _read_configured_repos(self):
         repos = self.repoconfig.read_sections(
             ['baseimage-repositories', 'repositories'])
-        repos.append(self.repoconfig.get_localrepo(remote=True))
+        if 'BUILD_URL' in os.environ:
+            repos.append(self.repoconfig.get_localrepo(remote=True))
+        else:
+            repos.append(self.repoconfig.get_localrepo(remote=False))
         logging.debug('Configured repos: {}'.format(pformat(repos)))
         return repos
 

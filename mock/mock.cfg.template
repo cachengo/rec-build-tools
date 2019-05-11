@@ -32,6 +32,8 @@ config_opts['exclude_from_homedir_cleanup'] = ('build/SOURCES', '.bash_history',
 # Common RPM directive values
 config_opts['macros']['%packager'] = #RPM_PACKAGER#
 config_opts['macros']['%dist'] = ".el7.centos%{_platform_product}"
+config_opts['macros']['%_platform_product_release_build_id'] = #PRODUCT_RELEASE_BUILD_ID#
+config_opts['macros']['%_platform_product_release_label'] = #PRODUCT_RELEASE_LABEL#
 config_opts['macros']['%_platform_product'] = #RPM_RELEASE_ID#
 config_opts['macros']['%_platform_dist'] = ".el7.centos"
 config_opts['macros']['%_platform_vendor'] = #RPM_VENDOR#

@@ -18,23 +18,18 @@ set -e
 
 LIBDIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 
-PUBLISH_RESULTS="${PUBLISH_RESULTS:-false}"
-VIRT_CUSTOMIZE_MEM="${VIRT_CUSTOMIZE_MEM:-}"
-VIRT_CUSTOMIZE_SMP="${VIRT_CUSTOMIZE_SMP:-}"
-PARALLEL_BUILD_TIMEOUT="${PARALLEL_BUILD_TIMEOUT:-0}"
-ENABLE_GOLDEN_IMAGE_ROOT_PASSWORD="${ENABLE_GOLDEN_IMAGE_ROOT_PASSWORD:-true}"
-GOLDEN_BASE_IMAGE_TAR_URL=${GOLDEN_BASE_IMAGE_TAR_URL:-}
 GOLDEN_BASE_IMAGE_FETCH_USER=${GOLDEN_BASE_IMAGE_FETCH_USER:-}
 GOLDEN_BASE_IMAGE_FETCH_PASSWORD=${GOLDEN_BASE_IMAGE_FETCH_PASSWORD:-}
 
-WORK=$(dirname $(dirname $LIBDIR))
+WORK=$(readlink -f ${WORK:-$(dirname $(dirname $LIBDIR))})
+mkdir -p $WORK
 RPM_BUILDER=$(find $WORK -maxdepth 2 -type d -name rpmbuilder)
 
 WORKTMP=$WORK/tmp
 WORKLOGS=$WORKTMP/logs
 DURATION_LOG=$WORKLOGS/durations.log
-MANIFEST_PATH=$WORK/.repo/manifests
-BUILD_CONFIG_INI=$WORK/.repo/manifests/build_config.ini
+MANIFEST_PATH=$(readlink -f ${MANIFEST_PATH:-$WORK/.repo/manifests})
+BUILD_CONFIG_INI=${BUILD_CONFIG_INI:-$MANIFEST_PATH/build_config.ini}
 GOLDEN_IMAGE_NAME=guest-image.img
 TMP_GOLDEN_IMAGE=$WORKTMP/$GOLDEN_IMAGE_NAME
 
@@ -59,14 +54,15 @@ function _read_build_config()
 
 function _read_manifest_vars()
 {
-  PRODUCT_RELEASE_BUILD_ID="${BUILD_NUMBER:?0}"
+  PRODUCT_RELEASE_BUILD_ID="${BUILD_NUMBER:-0}"
   PRODUCT_RELEASE_LABEL="$(_read_build_config DEFAULT product_release_label)"
 }
 
 function _initialize_work_dirs()
 {
+  mkdir -p $WORK
   rm -rf $WORKRESULTS
-  mkdir -p $WORKRESULTS $REPO_FILES $REPO_DIR $RPMLISTS $CHECKSUM_DIR
+  mkdir -p $WORKRESULTS $REPO_FILES $REPO_DIR $SRC_REPO_DIR $RPMLISTS $CHECKSUM_DIR
   # dont clear tmp, can be used for caching
   mkdir -p $WORKTMP
   rm -rf $WORKLOGS
@@ -140,8 +136,22 @@ function _run_cmd_as_step()
   _success $step
 }
 
+function _add_rpms_to_localrepo()
+{
+  local rpms=$@
+  mkdir -p $REPO_DIR
+  mkdir -p $SRC_REPO_DIR
+  for rpm in $@; do
+    if grep ".src.rpm" <<< "$rpm"; then
+      cp -f $rpm $SRC_REPO_DIR
+    else
+      cp -f $rpm $REPO_DIR
+    fi
+  done
+  _create_localrepo
+}
 
-function _add_rpms_to_repo()
+function _add_rpms_dir_to_repo()
 {
   local repo_dir=$1
   local rpm_dir=$2
@@ -161,8 +171,8 @@ function _create_localrepo()
 
 function _add_rpms_to_repos_from_workdir()
 {
-  _add_rpms_to_repo $REPO_DIR $1/buildrepository/mock/rpm
-  _add_rpms_to_repo $SRC_REPO_DIR $1/buildrepository/mock/srpm
+  _add_rpms_dir_to_repo $REPO_DIR $1/buildrepository/mock/rpm
+  _add_rpms_dir_to_repo $SRC_REPO_DIR $1/buildrepository/mock/srpm
   #find $1/ -name '*.tar.gz' | xargs rm -f
   true
 }

@@ -59,7 +59,7 @@ def test_complete_parse(mock_config, mock_reporeader, _):
                                    Result(0, '', ''),  # rm -rf /var/yum/cache
                                    Result(0, yum_available_output, '')]
     os.environ['BUILD_URL'] = 'test-url/'
-    os.environ['WORKSPACE'] = '/foo/path'
+    os.environ['WORK'] = '/foo/path'
     result = RpmDataBuilder('fake_build_config_path',
                             yum_installed_output,
                             rpm_info_output,

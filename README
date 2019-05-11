@@ -6,3 +6,9 @@ Execute with:
 Execute only subset with verbose diff on assertion errors:
   $ tox -e py27 -- -vv tools/script/process_rpmdata_test.py::test_components
 
+# Building REC
+
+  $ git clone <manifest-repo>
+  $ git clone <build-tools-repo>
+  $ build-tools/build_images.sh -m manifest -w work
+

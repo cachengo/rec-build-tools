@@ -17,6 +17,7 @@ set -e
 
 scriptdir="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 source $scriptdir/lib.sh
+_read_manifest_vars
 
 config_ini=${1:-$BUILD_CONFIG_INI}
 output_repo_files_dir=${2:-$REPO_FILES}
@@ -37,6 +38,8 @@ sed -i \
   -e "s/#RPM_VENDOR#/\"$(_read_build_config $config_ini rpm vendor)\"/" \
   -e "s/#RPM_LICENSE#/\"$(_read_build_config $config_ini rpm license)\"/" \
   -e "s/#RPM_RELEASE_ID#/\"$(_read_build_config $config_ini rpm release_id)\"/" \
+  -e "s/#PRODUCT_RELEASE_BUILD_ID#/\"$PRODUCT_RELEASE_BUILD_ID\"/" \
+  -e "s/#PRODUCT_RELEASE_LABEL#/\"$PRODUCT_RELEASE_LABEL\"/" \
   $mock_cfg
 
 docker_sock=/var/run/docker.sock

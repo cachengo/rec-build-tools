@@ -19,10 +19,7 @@ set -e
 scriptdir="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 source $scriptdir/lib.sh
 
-output_image_path="$1"
-[[ $output_image_path =~ ^/ ]] || output_image_path=$(pwd)/$output_image_path
-rpm_info_output_dir=$2
-[[ $rpm_info_output_dir =~ ^/ ]] || rpm_info_output_dir=$(pwd)/$rpm_info_output_dir
+output_image_path=${1:-$WORKTMP/goldenimage/$GOLDEN_IMAGE_NAME}
 
 docker_dib_image=dib:2.0
 _load_docker_image $docker_dib_image
@@ -32,10 +29,15 @@ docker run \
   --privileged \
   -v /dev:/dev \
   -v $WORK:/work \
+  -e WORK=/work \
+  -v $MANIFEST_PATH:/manifest \
+  -e MANIFEST_PATH=/manifest \
+  -v $scriptdir:/tools \
   $docker_dib_image \
-  $(realpath --relative-to $WORK $scriptdir)/create_golden_image.sh
+  /tools/create_golden_image.sh
 
-_publish_image ${TMP_GOLDEN_IMAGE}.qcow2 $output_image_path/${GOLDEN_IMAGE_NAME}
+mkdir -p $(dirname $output_image_path)
+mv -f ${TMP_GOLDEN_IMAGE}.qcow2 $output_image_path
 
 input_dir=$WORKTMP/rpmdata
 mkdir $input_dir

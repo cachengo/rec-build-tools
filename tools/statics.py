@@ -20,7 +20,7 @@ WORK_ROOT = os.path.dirname(
             os.path.dirname(
                 os.path.realpath(__file__)))))
 
-MAINFEST_PATH = os.path.join(WORK_ROOT, '.repo/manifests')
+MAINFEST_PATH = os.environ.get('MANIFEST_PATH', os.path.join(WORK_ROOT, '.repo/manifests'))
 
 BUILD_CONFIG_PATH = os.path.join(MAINFEST_PATH, 'build_config.ini')
 PACKAGES_CONFIG_PATH = os.path.join(MAINFEST_PATH, 'packages.yaml')
