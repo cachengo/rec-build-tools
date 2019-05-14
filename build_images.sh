@@ -14,15 +14,16 @@
 # limitations under the License.
 
 set -x
-set -eu
+set -e
+set -o pipefail
 
 usage() {
-    echo "Usage: $0 -m <manifest-path> -w <work-dir-path>"
+    echo "Usage: $0 -m <manifest-dir> -w <work-dir> [-r <rpmbuilder-dir> -p <rpm-create-search-dir>]"
     exit 1
 }
 
-[ "$#" -ne 4 ] && usage
-while getopts "m:w:" OPT; do
+rpm_search_paths=""
+while getopts "m:w:p:r:" OPT; do
     case $OPT in
     m)
         export MANIFEST_PATH=$(readlink -f $OPTARG)
@@ -30,11 +31,23 @@ while getopts "m:w:" OPT; do
     w)
         export WORK=$OPTARG
         ;;
+    r)
+        export RPMBUILDER_PATH=$(readlink -f $OPTARG)
+        ;;
+    p)
+        rpm_search_paths+=" $OPTARG"
+        ;;
     *)
         usage
         ;;
     esac
 done
+
+[ -z "$MANIFEST_PATH" ] && usage
+[ -z "$WORK" ] && usage
+[ -n "$rpm_search_paths" -a -z "$RPMBUILDER_PATH" ] && usage
+shift "$((OPTIND-1))"
+[ "$#" -ne 0 ] && usage
 
 scriptdir="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 source $scriptdir/lib.sh
@@ -43,6 +56,11 @@ _initialize_work_dirs
 
 # Create manifest RPM
 $LIBDIR/create_manifest_rpm.sh
+
+# Create RPMs
+if [ -n "$rpm_search_paths" ]; then
+    $LIBDIR/build_rpms.sh $rpm_search_paths
+fi
 
 # Create repo config
 $LIBDIR/build_step_create_yum_repo_files.sh
