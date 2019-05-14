@@ -23,7 +23,6 @@ GOLDEN_BASE_IMAGE_FETCH_PASSWORD=${GOLDEN_BASE_IMAGE_FETCH_PASSWORD:-}
 
 WORK=$(readlink -f ${WORK:-$(dirname $(dirname $LIBDIR))})
 mkdir -p $WORK
-RPM_BUILDER=$(find $WORK -maxdepth 2 -type d -name rpmbuilder)
 
 WORKTMP=$WORK/tmp
 WORKLOGS=$WORKTMP/logs
@@ -40,7 +39,6 @@ SRC_REPO_DIR=$WORKRESULTS/src_repo
 RPMLISTS=$WORKRESULTS/rpmlists
 CHECKSUM_DIR=$WORKRESULTS/bin_checksum
 RESULT_IMAGES_DIR=$WORKRESULTS/images
-RPM_BUILDER_SETTINGS=$WORKTMP/mocksettings/mock.cfg
 
 function _read_build_config()
 {
@@ -111,31 +109,6 @@ function _success()
   _header "STEP OK: $@"
 }
 
-
-function _run_cmd()
-{
-  _info "[cmd-start]: $@"
-  stamp_start=$(date +%s)
-  time $@ 2>&1 || _abort "Command failed: $@"
-  stamp_end=$(date +%s)
-  echo "$((stamp_end - stamp_start)) $@" >> $DURATION_LOG.unsorted
-  sort -nr $DURATION_LOG.unsorted > $DURATION_LOG
-  _log "[cmd-end]: $@"
-}
-
-
-function _run_cmd_as_step()
-{
-  if [ $# -eq 1 -a -f $1 ]; then
-    step="$(basename $1)"
-  else
-    step="$@"
-  fi
-  _step $step
-  _run_cmd $@
-  _success $step
-}
-
 function _add_rpms_to_localrepo()
 {
   local rpms=$@
@@ -151,30 +124,14 @@ function _add_rpms_to_localrepo()
   _create_localrepo
 }
 
-function _add_rpms_dir_to_repo()
-{
-  local repo_dir=$1
-  local rpm_dir=$2
-  mkdir -p $repo_dir
-  cp -f $(repomanage --keep=1 --new $rpm_dir) $repo_dir/
-}
-
 function _create_localrepo()
 {
   pushd $REPO_DIR
-  _run_cmd createrepo --workers=8 --update .
+  createrepo --workers=8 --update .
   popd
   pushd $SRC_REPO_DIR
-  _run_cmd createrepo --workers=8 --update .
+  createrepo --workers=8 --update .
   popd
-}
-
-function _add_rpms_to_repos_from_workdir()
-{
-  _add_rpms_dir_to_repo $REPO_DIR $1/buildrepository/mock/rpm
-  _add_rpms_dir_to_repo $SRC_REPO_DIR $1/buildrepository/mock/srpm
-  #find $1/ -name '*.tar.gz' | xargs rm -f
-  true
 }
 
 function _publish_results()

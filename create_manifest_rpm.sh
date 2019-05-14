@@ -25,7 +25,7 @@ rm -rf $work
 mkdir -p $work
 cp -f $MANIFEST_PATH/*.spec $work
 
-$scriptdir/create_mock_config.sh $MANIFEST_PATH/build_config.ini $work/mock_config
+$scriptdir/create_mock_config.sh $BUILD_CONFIG_INI $work/mock_config
 
 rpm_macros=$work/rpmmacros
 $scriptdir/mock2rpmbuild_config.py --mock-config $work/mock_config/mock.cfg --output-file-path $rpm_macros

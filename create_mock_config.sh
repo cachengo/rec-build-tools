@@ -21,7 +21,7 @@ _read_manifest_vars
 
 config_ini=${1:-$BUILD_CONFIG_INI}
 output_repo_files_dir=${2:-$REPO_FILES}
-output_mock_dir=${2:-$(dirname $RPM_BUILDER_SETTINGS)}
+output_mock_dir=${2:-$output_repo_files_dir}
 [ -f "$config_ini" ] || _abort "Config INI '$config_ini' not found"
 
 # Create .repo files

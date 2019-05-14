@@ -35,7 +35,7 @@ fetch_image() {
     echo "Download $sourceurl to $WORKTMP/base-img"
     mkdir -pv $WORKTMP/base-img
     pushd $WORKTMP/base-img
-    _run_cmd wget --no-check-certificate --no-verbose -N \
+    wget --no-check-certificate --no-verbose -N \
     --auth-no-challenge $wget_args \
     $sourceurl
     popd

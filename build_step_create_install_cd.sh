@@ -103,7 +103,7 @@ cp -fp boot/initrd-provisioning.img $iso_build_dir/isolinux/initrd.img
 rm -rf boot/
 
 echo "Generating boot iso"
-_run_cmd genisoimage  -U -r -v -T -J -joliet-long \
+genisoimage  -U -r -v -T -J -joliet-long \
   -V "${release_version}" -A "${release_version}" -P ${iso_image_label} \
   -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
   -boot-info-table -eltorito-alt-boot -e images/efiboot.img -no-emul-boot \
@@ -116,12 +116,12 @@ cp -f ${input_image} $iso_build_dir/
 mkdir -p $iso_build_dir/rpms
 
 echo "Generating product iso"
-_run_cmd genisoimage  -U -r -v -T -J -joliet-long \
+genisoimage  -U -r -v -T -J -joliet-long \
   -V "${release_version}" -A "${release_version}" -P ${iso_image_label} \
   -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
   -boot-info-table -eltorito-alt-boot -e images/efiboot.img -no-emul-boot \
   -o release.iso $iso_build_dir
-_run_cmd isohybrid $tmp/release.iso
+isohybrid $tmp/release.iso
 _publish_image $tmp/release.iso $output_image_path
 
 echo "Clean up to preserve workspace footprint"
