@@ -189,11 +189,11 @@ function _get_package_list()
 function _load_docker_image()
 {
   local docker_image=$1
-  local docker_image_url="$(_read_build_config DEFAULT docker_images)/${docker_image}.tar"
   if docker inspect ${docker_image} &> /dev/null; then
     echo "Using already built ${docker_image} image"
   else
     echo "Loading ${docker_image} image"
+    local docker_image_url="$(_read_build_config DEFAULT docker_images)/${docker_image}.tar"
     curl -L $docker_image_url | docker load
   fi
 }

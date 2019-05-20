@@ -24,13 +24,13 @@ tmp=$WORKTMP/install_cd
 iso_build_dir=$tmp/build
 
 input_image=$(readlink -f ${1:-$WORKTMP/goldenimage/$GOLDEN_IMAGE_NAME})
-output_image_path=${2:-$RESULT_IMAGES_DIR/rec.iso}
+output_image_path=${2:-$RESULT_IMAGES_DIR/install.iso}
 output_bootcd_path=${3:-$RESULT_IMAGES_DIR/bootcd.iso}
 mkdir -p $tmp
 rm -rf $iso_build_dir
 mkdir -p $iso_build_dir
 
-reposnap_base=$(_read_build_config DEFAULT centos_reposnap_base)
+reposnap_base=$(_read_build_config DEFAULT centos_reposnap)
 release_version=$PRODUCT_RELEASE_LABEL
 reposnap_base_dir="${reposnap_base}/os/x86_64/"
 iso_image_label=$(_read_build_config DEFAULT iso_image_label)
@@ -40,13 +40,6 @@ cd_isolinux_dir="${reposnap_base_dir}/isolinux"
 
 remove_extra_slashes_from_url() {
   echo $1 | sed -re 's#([^:])//+#\1/#g'
-}
-
-get_nexus() {
- $scriptdir/nexus3_dl.sh \
-    $nexus_url \
-    $(basename $nexus_reposnaps) \
-    ${reposnap_base#$nexus_reposnaps/}/os/x86_64 $@
 }
 
 wget_dir() {
@@ -62,19 +55,11 @@ wget_dir() {
 pushd $iso_build_dir
 
 # Get files needed for generating CD image.
-if echo $reposnap_base_dir | grep -E "https?://nexus3"; then
-  nexus_url=$(_read_build_config DEFAULT nexus_url)
-  nexus_reposnaps=$(_read_build_config DEFAULT nexus_reposnaps)
-  get_nexus "EFI/BOOT" "EFI/BOOT/fonts"
-  get_nexus "images:*efiboot.img" "images/pxeboot"
-  get_nexus "isolinux"
-else
-  wget_dir ${cd_efi_dir}/
-  wget_dir ${cd_images_dir}/
-  rm -rf images/boot.iso
-  sync
-  wget_dir ${cd_isolinux_dir}/
-fi
+wget_dir ${cd_efi_dir}/
+wget_dir ${cd_images_dir}/
+rm -rf images/boot.iso
+sync
+wget_dir ${cd_isolinux_dir}/
 chmod +w -R isolinux/ EFI/ images/
 
 if [ -e $scriptdir/isolinux/isolinux.cfg ]; then

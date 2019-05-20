@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# Use newer than the CentOS stock diskimage-builder via "cloud" repo
 FROM centos:7.5.1804
 RUN \
-    yum-config-manager --add-repo http://mirror.centos.org/centos/7/cloud/x86_64/openstack-pike/ && \
-    yum-config-manager --add-repo https://trunk.rdoproject.org/centos7-pike/57/c7/57c7be250c919c04b51361d4d42e95818cfec5a5_15fc9723 && \
+    yum-config-manager --add-repo http://mirror.centos.org/centos/7/cloud/x86_64/openstack-queens/ && \
     yum install --nogpgcheck -y diskimage-builder \
         git \
         python \

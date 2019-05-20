@@ -54,6 +54,9 @@ source $scriptdir/lib.sh
 
 _initialize_work_dirs
 
+docker build -f $scriptdir/docker-context/Dockerfile-dib -t dib $scriptdir/docker-context
+docker build -f $scriptdir/docker-context/Dockerfile-buildtools -t buildtools $scriptdir/docker-context
+
 # Create manifest RPM
 $LIBDIR/create_manifest_rpm.sh
 

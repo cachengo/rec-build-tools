@@ -18,7 +18,7 @@ set -ex
 scriptdir="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 source $scriptdir/lib.sh
 
-docker_image=buildtools:2.0
+docker_image=buildtools
 _load_docker_image $docker_image
 
 function _resolve_abs_path() {

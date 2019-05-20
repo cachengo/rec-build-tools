@@ -21,7 +21,7 @@ source $scriptdir/lib.sh
 
 output_image_path=${1:-$WORKTMP/goldenimage/$GOLDEN_IMAGE_NAME}
 
-docker_dib_image=dib:2.0
+docker_dib_image=dib
 _load_docker_image $docker_dib_image
 
 docker run \
