@@ -57,7 +57,7 @@ pushd $iso_build_dir
 # Get files needed for generating CD image.
 wget_dir ${cd_efi_dir}/
 wget_dir ${cd_images_dir}/
-rm -rf images/boot.iso
+rm -f images/boot.iso
 sync
 wget_dir ${cd_isolinux_dir}/
 chmod +w -R isolinux/ EFI/ images/
@@ -79,6 +79,7 @@ popd
 pushd $tmp
 
  # Copy latest kernel and initrd-provisioning from boot dir
+export LIBGUESTFS_BACKEND=direct
 virt-copy-out -a $input_image /boot/ ./
 chmod u+w boot/
 rm -f $iso_build_dir/isolinux/vmlinuz $iso_build_dir/isolinux/initrd.img

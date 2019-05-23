@@ -29,5 +29,6 @@ RUN \
         sudo \
         e2fsprogs \
         xfsprogs
+RUN find -name 99-selinux-fixfiles-restore -exec rm {} \;
 
 WORKDIR /work
