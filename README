@@ -8,7 +8,8 @@ Execute only subset with verbose diff on assertion errors:
 
 # Building REC
 
-  $ git clone <manifest-repo>
-  $ git clone <build-tools-repo>
-  $ build-tools/build_images.sh -m manifest -w work
+git clone git@github.com:cachengo/rec-manifest.git
+git clone git@github.com:cachengo/rec-build-tools.git
+build-tools/setup_system.sh
+build-tools/build_images.sh -m manifest -w work
 

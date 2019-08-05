@@ -45,6 +45,7 @@ fetch_image $BASE_IMAGE_URL
 cp $MANIFEST_PATH/packages.yaml $scriptdir/dib_elements/myproduct/package-installs.yaml
 
 DIB_DEBUG_TRACE=1 \
+  DIB_NO_TMPFS=1 \
   FS_TYPE=xfs \
   PACKAGES_TO_INSTALL="$(_get_package_list install)" \
   PACKAGES_TO_UNINSTALL="$(_get_package_list uninstall)" \
