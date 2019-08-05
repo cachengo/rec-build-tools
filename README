@@ -1,15 +1,13 @@
-# Unit tests and static analysis
+# REC Build Tools
 
-Execute with:
-  $ tox
-
-Execute only subset with verbose diff on assertion errors:
-  $ tox -e py27 -- -vv tools/script/process_rpmdata_test.py::test_components
-
-# Building REC
+## Building REC parts
 
 git clone git@github.com:cachengo/rec-manifest.git
 git clone git@github.com:cachengo/rec-build-tools.git
-build-tools/setup_system.sh
-build-tools/build_images.sh -m manifest -w work
+rec-build-tools/setup_system.sh
 
+
+## Build REC ISO image
+
+rec-build-tools/build_images.sh -m rec-manifest -w work
+find work
