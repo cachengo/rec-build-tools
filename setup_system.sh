@@ -18,3 +18,8 @@ sudo chmod 777 /var/run/docker.sock
 sudo yum -y install createrepo libguestfs-tools-c jq
 sudo systemctl start libvirtd
 systemctl status libvirtd
+
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install mock createrepo rpmdevtools
+getent group mock || groupadd mock
+usermod -a -G mock $USER
