@@ -33,6 +33,8 @@ from tools.log import set_logging
 from tools.io import read_from, write_to, read_json
 from tools.convert import to_json, CsvConverter
 
+LOCAL_REPOS = ['localrepo', 'anaconda']
+
 
 class RpmDataBuilder(object):
     def __init__(self, build_config, yum_info_installed, rpm_info_installed,
@@ -254,7 +256,7 @@ class RpmDataBuilder(object):
 
     def _get_rpm_available_in(self, rpm, available_rpms):
         if 'From repo' in rpm.keys():
-            if rpm['From repo'] == 'localrepo':
+            if rpm['From repo'] in LOCAL_REPOS:
                 return 'localrepo'
             available_repo_rpms = available_rpms[rpm['From repo']]
             for a_rpm in available_repo_rpms:
