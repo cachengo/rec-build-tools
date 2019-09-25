@@ -50,7 +50,14 @@ wget_dir() {
   url=$(remove_extra_slashes_from_url $url)
   # count cut length in case url depth changes
   cut_dirs=$(echo $url | sed -re 's|.*://[^/]+/(.+)|\1|' -e 's|/$||' | grep -o / | wc -l)
-  wget -N -r --no-host-directories --no-verbose --cut-dirs=${cut_dirs} --reject index.html* --no-parent $url
+  wget -N -r \
+    --no-host-directories \
+    --no-verbose \
+    --cut-dirs=${cut_dirs} \
+    --reject index.html* \
+    --no-parent \
+    --execute robots=off \
+    $url
 }
 
 pushd $iso_build_dir
