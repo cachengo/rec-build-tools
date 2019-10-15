@@ -46,7 +46,6 @@ fetch_image $BASE_IMAGE_URL
 cp $MANIFEST_PATH/packages.yaml $scriptdir/dib_elements/myproduct/package-installs.yaml
 
 DIB_DEBUG_TRACE=1 \
-  FS_TYPE=xfs \
   PACKAGES_TO_INSTALL="$(_get_package_list install)" \
   PACKAGES_TO_UNINSTALL="$(_get_package_list uninstall)" \
   DIB_RPMLISTS=$RPMLISTS \
@@ -56,6 +55,6 @@ DIB_DEBUG_TRACE=1 \
   DIB_YUM_REPO_CONF="${REPO_FILES}/repositories.repo ${REPO_FILES}/localrepo.repo" \
   DIB_LOCAL_IMAGE=$WORKTMP/base-img/$BASE_IMAGE_NAME \
   ELEMENTS_PATH=$scriptdir/dib_elements/ \
-  /usr/bin/disk-image-create --root-label img-rootfs --image-size $BASE_IMAGE_SIZE vm centos7 selinux-permissive myproduct ${EXTRA_ELEMENTS:-} -o $TMP_GOLDEN_IMAGE
+  /usr/bin/disk-image-create -a arm64 --root-label img-rootfs --image-size $BASE_IMAGE_SIZE vm centos7 selinux-permissive myproduct ${EXTRA_ELEMENTS:-} -o $TMP_GOLDEN_IMAGE
 
 rm -rf $WORKTMP/base-img
