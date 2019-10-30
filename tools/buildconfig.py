@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import ConfigParser
 import platform
+try:
+    import ConfigParser as configparser
+except ImportError:
+    import configparser
 
 from tools.statics import BUILD_CONFIG_PATH
 
@@ -22,9 +25,9 @@ def optionxform_arch(option):
     return str(option).replace('#ARCH#', platform.machine())
 
 
-class BuildConfigParser(ConfigParser.ConfigParser):
+class BuildConfigParser(configparser.ConfigParser):  # pylint: disable=too-many-ancestors
     def __init__(self, ini_file=BUILD_CONFIG_PATH):
-        ConfigParser.ConfigParser.__init__(self)
+        configparser.ConfigParser.__init__(self)
         self.ini_file = ini_file
         self.optionxform = optionxform_arch
         self.read(self.ini_file)
@@ -32,7 +35,7 @@ class BuildConfigParser(ConfigParser.ConfigParser):
     def items(self, section):  # pylint: disable=arguments-differ
         defaults = self.defaults()
         resultlist = []
-        for item in ConfigParser.ConfigParser.items(self, section):
+        for item in configparser.ConfigParser.items(self, section):
             if item[0] not in defaults:
                 resultlist.append(item)
         return resultlist
