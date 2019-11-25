@@ -68,8 +68,8 @@ wget_dir ${cd_images_dir}/
 rm -f images/boot.iso
 sync
 chmod +w -R EFI/ images/
-# AArch64 does not support PC-BIOS, so skip all isolinux processing
-if [ "${iso_arch}" != 'aarch64' ]; then
+# Only x86_64 supports PC-BIOS, so skip all isolinux processing on other platforms
+if [ "${iso_arch}" = 'x86_64' ]; then
     wget_dir ${cd_isolinux_dir}/
     chmod +w -R isolinux/
 
@@ -97,7 +97,7 @@ popd
 pushd $tmp
 
  # Copy latest kernel and initrd-provisioning from boot dir
-if [ "${iso_arch}" != 'aarch64' ]; then
+if [ "${iso_arch}" = 'x86_64' ]; then
     qemu-img convert $input_image guest-image.raw
     myloop=$(sudo losetup -fP --show guest-image.raw)
     mkdir mnt
@@ -106,7 +106,7 @@ if [ "${iso_arch}" != 'aarch64' ]; then
     sudo chown -R $(id -u):$(id -g) boot
     sudo umount mnt
     sudo losetup -d ${myloop}
-    rm -f guest-image.raw
+    sudo rm -rf guest-image.raw mnt
 else
     export LIBGUESTFS_BACKEND=direct
     virt-copy-out -a $input_image /boot/ ./
@@ -114,7 +114,7 @@ fi
 
 chmod u+w boot/
 KVER=`ls -lrt boot/vmlinuz-* |grep -v rescue |tail -n1 |awk -F 'boot/vmlinuz-' '{print $2}'`
-if [ "${iso_arch}" != 'aarch64' ]; then
+if [ "${iso_arch}" = 'x86_64' ]; then
     rm -f $iso_build_dir/isolinux/vmlinuz $iso_build_dir/isolinux/initrd.img
     cp -fp boot/vmlinuz-${KVER} $iso_build_dir/isolinux/vmlinuz
     cp -fp boot/initrd-provisioning.img $iso_build_dir/isolinux/initrd.img
@@ -125,7 +125,7 @@ cp -fp boot/initrd-provisioning.img $iso_build_dir/images/pxeboot/initrd.img
 rm -rf boot/
 
 echo "Generating boot iso"
-if [ "${iso_arch}" != 'aarch64' ]; then
+if [ "${iso_arch}" = 'x86_64' ]; then
     bios_specific_args="-b isolinux/isolinux.bin -c isolinux/boot.cat \
                         -no-emul-boot -boot-load-size 4 -boot-info-table"
 fi
@@ -147,7 +147,7 @@ genisoimage  -U -r -v -T -J -joliet-long \
   ${bios_specific_args:-} \
   -eltorito-alt-boot -e images/efiboot.img -no-emul-boot \
   -o release.iso $iso_build_dir
-[ "${iso_arch}" = 'aarch64' ] || isohybrid $tmp/release.iso
+[ "${iso_arch}" != 'x86_64' ] || isohybrid $tmp/release.iso
 _publish_image $tmp/release.iso $output_image_path
 
 echo "Clean up to preserve workspace footprint"
