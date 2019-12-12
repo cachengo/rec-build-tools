@@ -20,11 +20,15 @@ set -eu
 set -o pipefail
 
 sed -i -e "s/console=ttyS0,115200/console=ttyS1,115200 console=ttyAMA0,115200/g" /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
 
-if [ -e /boot/grub2/grub.cfg ]; then
-    grub2-mkconfig -o /boot/grub2/grub.cfg
-elif [ -e /boot/efi/EFI/centos/grub.cfg ]; then
-    grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
-elif [ -e /boot/efi/EFI/BOOT/grub.cfg ]; then
-    grub2-mkconfig -o /boot/efi/EFI/BOOT/grub.cfg
-fi
+# DIB only handles grub.cfg in /boot/grub2/grub.cfg, so we handle the UEFI grub.cfg explicitly
+for efi_boot_dir in \
+    /boot/efi/EFI/BOOT \
+    /boot/efi/EFI/centos
+do
+    if [ -d "${efi_boot_dir}" ]; then
+        rm -f "${efi_boot_dir}/grub.cfg"
+        cp /boot/grub2/grub.cfg "${efi_boot_dir}"
+    fi
+done
